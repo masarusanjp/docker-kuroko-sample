@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: docker-kuroko-sample_production
-  username: docker-kuroko-sample
-  password: <%= ENV['DOCKER-KUROKO-SAMPLE_DATABASE_PASSWORD'] %>
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: <%= ENV['MYSQL_HOST'] %>
