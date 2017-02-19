@@ -1,0 +1,29 @@
+version: "2"
+services:
+  kuroko:
+    build: .
+    volumes:
+      - /app/kuroko/tmp
+      - /app/kuroko/public
+    links:
+      - kuroko_mysql
+    env_file: .env
+    environment:
+      - RACK_ENV=production
+      - RAILS_ENV=production
+      - MYSQL_HOST=kuroko_mysql
+    depends_on:
+      - kuroko_mysql
+  kuroko_mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes_from:
+      - kuroko_mysql_data
+    depends_on:
+      - kuroko_mysql_data
+    env_file: .env
+  kuroko_mysql_data:
+    image: busybox
+    volumes:
+      - /var/lib/mysql
